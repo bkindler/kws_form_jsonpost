@@ -1,0 +1,161 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formElementsDefinition:
+            Form:
+              formEditor:
+                editors:
+                  900:
+                    selectOptions:
+                      9786149459:
+                        value: KwsFormJsonpost
+                        label: 'HTTP POST/GET Finisher'
+
+                propertyCollections:
+                  finishers:
+                    9786149459:
+                      __inheritances:
+                        10: 'TYPO3.CMS.Form.mixins.formElementMixins.formPostFinisherMixin'
+                      identifier: KwsFormJsonpost
+                      editors:
+                        __inheritances:
+                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
+                        100:
+                          label: 'HTTP POST Finisher'
+                        200:
+                          identifier: 'url'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'URL'
+                          propertyPath: 'options.url'
+                          propertyValidators:
+                            10: NotEmpty
+                        300:
+                          identifier: 'username'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'username'
+                          propertyPath: 'options.username'
+                        400:
+                          identifier: 'password'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'password'
+                          propertyPath: 'options.password'
+                        500:
+                          identifier: 'variables'
+                          templateName: 'Inspector-PropertyGridEditor'
+                          label: 'Variables'
+                          propertyPath: 'options.variables'
+                          fieldExplanationText: 'add additional variables for HTTP Request'
+                          isSortable: true
+                          enableAddRow: true
+                          enableDeleteRow: true
+                          useLabelAsFallbackValue: false
+                          gridColumns:
+                            -
+                              name: value
+                              title: 'Key'
+                            -
+                              name: label
+                              title: 'Value'
+                        600:
+                          identifier: fieldKeyAsInteger
+                          templateName: Inspector-CheckboxEditor
+                          label: 'Convert field key to integer'
+                          propertyPath: options.fieldKeyAsInteger
+                          fieldExplanationText: 'If enabled, the field key will get converted from string to integer for Request Data. Therefor the needed id must be included in the identifier.'
+                        700:
+                          identifier: requestMethod
+                          templateName: Inspector-SingleSelectEditor
+                          label: 'HTTP Request Method'
+                          propertyPath: options.requestMethod
+                          fieldExplanationText: 'change the HTTP Request Method, POST is recommended.'
+                          selectOptions:
+                            10:
+                              value: POST
+                              label: POST
+                            20:
+                              value: GET
+                              label: GET
+          finishersDefinition:
+            KwsFormJsonpost:
+              implementationClassName: 'Bkindler\KwsFormJsonpost\Finisher\PostFinisher'
+              formEditor:
+                iconIdentifier: 'form-finisher'
+                label: 'HTTP POST/GET Finisher'
+                predefinedDefaults:
+                  options:
+                    url: ''
+                    username: ''
+                    password: ''
+                    variables: {  }
+                    fieldKeyAsInteger: false
+              FormEngine:
+                label: 'KwsFormJsonpost'
+                __inheritances:
+                  10: 'TYPO3.CMS.Form.mixins.formElementMixins.formPostFinisherMixin'
+      mixins:
+        formElementMixins:
+          BaseCollectionEditorsMixin:
+            100:
+              identifier: header
+              templateName: Inspector-CollectionElementHeaderEditor
+            9999:
+              identifier: removeButton
+              templateName: Inspector-RemoveElementEditor
+          formPostFinisherMixin:
+            elements:
+              url:
+                label: 'URL'
+                config:
+                  type: 'input'
+                  eval: 'required'
+              username:
+                label: 'username'
+                config:
+                  type: 'input'
+              password:
+                label: 'password'
+                config:
+                  type: 'input'
+              variables:
+                title: 'Variables'
+                type: array
+                section: true
+                sectionItemKey: key
+                sectionItemValue: value
+                el:
+                  _arrayContainer:
+                    type: array
+                    title: 'Variables'
+                    el:
+                      key:
+                        TCEforms:
+                          label: 'Key'
+                          config:
+                            type: input
+                      value:
+                        TCEforms:
+                          label: 'Value'
+                          config:
+                            type: input
+              fieldKeyAsInteger:
+                label: 'Convert field key to integer'
+                config:
+                  type: check
+                  default: 1
+              requestMethod:
+                label: 'HTTP Request Method'
+                config:
+                  type: select
+                  renderType: selectSingle
+                  minitems: 1
+                  maxitems: 1
+                  size: 1
+                  items:
+                    10:
+                      - POST
+                      - POST
+                    20:
+                      - GET
+                      - GET

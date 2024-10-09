@@ -1,0 +1,29 @@
+{
+    "name": "bkindler/kws-form-jsonpost",
+    "description": "Provides HTTP JSON POST finisher for EXT:form",
+    "type": "typo3-cms-extension",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Björn Kindler",
+            "email": "info@kindler-webservices.de",
+            "homepage": "https://kindler-webservices.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.3",
+        "typo3/cms-core": "^11.5 || ^12.4",
+        "typo3/cms-form": "^11.5 || ^12.4 "
+    },
+    "autoload": {
+        "psr-4": {
+            "Bkindler\\KwsFormJsonpost\\": "Classes"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "kws_form_jsonpost"
+        }
+    }
+}
